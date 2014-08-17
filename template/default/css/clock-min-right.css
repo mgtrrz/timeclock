@@ -1,0 +1,15 @@
+#workingBox {
+    width:340px;
+    float:left;
+    margin-bottom:30px;
+}
+
+#clockDisplay {
+    height:70px;
+	width:260px;
+	float:right;
+	margin-top:-10px;
+	margin-bottom:44px;
+	font-size:3.5em;
+	text-align:center;
+}

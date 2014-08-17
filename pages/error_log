@@ -1,0 +1,1 @@
+[17-Aug-2014 12:13:02 America/Chicago] PHP Fatal error:  Call to a member function isAdmin() on a non-object in /home/mk9/public_html/timeclockdev.mk9.me/pages/admin.php on line 2

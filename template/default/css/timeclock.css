@@ -1,0 +1,36 @@
+body {
+	padding-top: 10px;
+}
+
+#container {
+    width: 600px;
+    margin:auto;
+}
+
+#punchButton {
+	padding-top:20px;
+	width: 200px;
+	margin:auto;
+}
+
+.extraWide {
+	padding-right:54px;
+	padding-left:54px;
+}
+
+#alert {
+	padding-top: 20px;
+}
+
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.completed {
+    color:#C7C3C3;
+}
+
+#clickable td:hover {
+    cursor: pointer;
+}

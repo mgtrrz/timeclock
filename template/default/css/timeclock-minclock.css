@@ -1,0 +1,39 @@
+body {
+	padding-top: 10px;
+}
+
+#workingBox {
+    width:340px;
+    float:left;
+    clear:none;
+}
+
+#container {
+    width: 600px;
+    margin:auto;
+}
+
+#clockDisplay {
+    height:76px;
+	width:260px;
+	float:right;
+	margin-top:-10px;
+	margin-bottom:10px;
+	font-size:3.5em;
+	text-align:center;
+}
+
+#punchButton {
+	padding-top:20px;
+	width: 150px;
+	margin:auto;
+}
+
+.extraWide {
+	padding-right:54px;
+	padding-left:54px;
+}
+
+#alert {
+	padding-top: 20px;
+}

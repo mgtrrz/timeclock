@@ -1,0 +1,748 @@
+Process 29646 attached - interrupt to quit
+23:51:17 restart_syscall(<... resuming interrupted call ...>) = 1
+23:51:17 recv(4, "N\0\0\0", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\n5.5.37-cll\0nx\0\0:#<H5lDL\0\377\367\10\2\0\17\200\25\0\0\0\0\0\0\0\0\0\0003YH;-qqe'0\\]\0mysql_native_password\0", 82, MSG_DONTWAIT) = 78
+23:51:17 send(4, "m\0\0\1\215\242\17\0\0\0\0\300\10\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0mk9_timeclockdev\0\24l\353)U4\302\342\3168\1y\213\2271\3028\354\360V\26mk9_timeclockdev\0mysql_native_password\0", 113, MSG_DONTWAIT) = 113
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\7\0\0\2", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\0\0\2\0\0\0", 82, MSG_DONTWAIT) = 7
+23:51:17 send(4, "3\0\0\0\3SELECT is_working FROM users WHERE staff_id='1001'", 55, MSG_DONTWAIT) = 55
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\1\0\0\1\1D\0\0\2\3def\20mk9_timeclockdev\5users\5users\nis_working\nis_working\f?\0\1\0\0\0\1 \0\0", 75, MSG_DONTWAIT) = 75
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\0\5\0\0\3\376\0\0\"\0\2\0\0\4\0011\5\0\0\5\376\0\0\"\0", 82, MSG_DONTWAIT) = 26
+23:51:17 send(4, "\1\0\0\0\1", 5, MSG_DONTWAIT) = 5
+23:51:17 close(4)                       = 0
+23:51:17 write(1, "X-Powered-By: PHP/5.5.15", 24) = 24
+23:51:17 write(1, "\r\n", 2)            = 2
+23:51:17 write(1, "Expires: Thu, 19 Nov 1981 08:52:00 GMT", 38) = 38
+23:51:17 write(1, "\r\n", 2)            = 2
+23:51:17 write(1, "Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0", 77) = 77
+23:51:17 write(1, "\r\n", 2)            = 2
+23:51:17 write(1, "Pragma: no-cache", 16) = 16
+23:51:17 write(1, "\r\n", 2)            = 2
+23:51:17 write(1, "Content-type: text/html", 23) = 23
+23:51:17 write(1, "\r\n", 2)            = 2
+23:51:17 write(1, "\r\n", 2)            = 2
+23:51:17 write(1, "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    \n\n    <title>TimeClock</title>\n\n    <!-- Bootstrap core CSS -->\n    <link href=\"css/lumen_bootstrap.css\" rel=\"stylesheet\">\n\n    <!-- Custom styles for this template -->\n    <link href=\"css/timeclock.css\" rel=\"stylesheet\">\n    ", 430) = 430
+23:51:17 write(1, "    <link href=\"css/clock-min-right.css\" rel=\"stylesheet\">\n    ", 63) = 63
+23:51:17 write(1, "    <!-- Jquery! -->\n    <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\"></script>\n\n    <!-- Bootstrap minified JS -->\n    <script src=\"//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js\"></script>\n\n  </head>\n\n  <body onload=\"updateClock(); setInterval('updateClock()', 1000 ) \">\n  <div id=\"container\">\n  \n  <div class=\"navbar navbar-default\">\n  <div class=\"navbar-header\">\n    <button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-responsive-collapse\">\n      <span class=\"icon-bar\"></span>\n      <span class=\"icon-bar\"></span>\n      <span class=\"icon-bar\"></span>\n    </button>\n    <a class=\"navbar-brand\" href=\"/\">TimeClock</a>\n  </div>\n  <div class=\"navbar-collapse collapse navbar-responsive-collapse\">\n    <ul class=\"nav navbar-nav\">\n      <li class=\"active\"><a href=\"/\">Punches</a></li>\n      <li><a href=\"schedule\">Schedule</a></li>\n      <li><a href=\"statistics\">Statistics</a></li>\n      <li><a href=\"earnings\">Earnings<"..., 1164) = 1164
+23:51:17 write(1, "Marcus Gutierrez", 16) = 16
+23:51:17 write(1, " <b class=\"caret\"></b></a>\n        <ul class=\"dropdown-menu\">\n          ", 72) = 72
+23:51:17 socket(PF_FILE, SOCK_STREAM, 0) = 4
+23:51:17 fcntl64(4, F_GETFL)            = 0x2 (flags O_RDWR)
+23:51:17 fcntl64(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+23:51:17 connect(4, {sa_family=AF_FILE, path="/var/lib/mysql/mysql.sock"}, 27) = 0
+23:51:17 fcntl64(4, F_SETFL, O_RDWR)    = 0
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "N\0\0\0", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\n5.5.37-cll\0ox\0\0kN#cL0Kj\0\377\367\10\2\0\17\200\25\0\0\0\0\0\0\0\0\0\0UGGjc0c'3lIe\0mysql_native_password\0", 82, MSG_DONTWAIT) = 78
+23:51:17 send(4, "m\0\0\1\215\242\17\0\0\0\0\300\10\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0mk9_timeclockdev\0\24*\27\21\340\30AO\17U\226\317\230\345+8^q\273f\7mk9_timeclockdev\0mysql_native_password\0", 113, MSG_DONTWAIT) = 113
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\7\0\0\2", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\0\0\2\0\0\0", 82, MSG_DONTWAIT) = 7
+23:51:17 send(4, "1\0\0\0\3SELECT is_admin FROM users WHERE staff_id='1001'", 53, MSG_DONTWAIT) = 53
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\1\0\0\1\1@\0\0\2\3def\20mk9_timeclockdev\5users\5users\10is_admin\10is_admin\f?\0\1\0\0\0\1!\20\0\0\0\5\0", 75, MSG_DONTWAIT) = 75
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\3\376\0\0\"\0\2\0\0\4\0011\5\0\0\5\376\0\0\"\0", 82, MSG_DONTWAIT) = 22
+23:51:17 send(4, "\1\0\0\0\1", 5, MSG_DONTWAIT) = 5
+23:51:17 close(4)                       = 0
+23:51:17 write(1, "<li><a href=\"admin\">Admin</a></li>", 34) = 34
+23:51:17 write(1, "          <li><a href=\"edit\">Edit Profile</a></li>\n          <li class=\"divider\"></li>\n          <li><a href=\"logout.php\">Log out</a></li>\n        </ul>\n      </li>\n    </ul>\n  </div>\n</div>\n<div id=\"workingBox\">\n", 213) = 213
+23:51:17 socket(PF_FILE, SOCK_STREAM, 0) = 4
+23:51:17 fcntl64(4, F_GETFL)            = 0x2 (flags O_RDWR)
+23:51:17 fcntl64(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+23:51:17 connect(4, {sa_family=AF_FILE, path="/var/lib/mysql/mysql.sock"}, 27) = 0
+23:51:17 fcntl64(4, F_SETFL, O_RDWR)    = 0
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "N\0\0\0", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\n5.5.37-cll\0px\0\0c]'Gr+yC\0\377\367\10\2\0\17\200\25\0\0\0\0\0\0\0\0\0\0##&5uqXC(>>Z\0mysql_native_password\0", 82, MSG_DONTWAIT) = 78
+23:51:17 send(4, "m\0\0\1\215\242\17\0\0\0\0\300\10\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0mk9_timeclockdev\0\24\17\36\17\252uT\254{\367$z\250\335NS\317\224\0334\5mk9_timeclockdev\0mysql_native_password\0", 113, MSG_DONTWAIT) = 113
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\7\0\0\2", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\0\0\2\0\0\0", 82, MSG_DONTWAIT) = 7
+23:51:17 send(4, "F\0\0\0\3SELECT MAX(timestamp) AS last_punch FROM punches WHERE user_id='1001'", 74, MSG_DONTWAIT) = 74
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\1\0\0\1\1 \0\0\2\3def\0\0\0\nlast_punch\0\f\10\0\23\0\0\0\f\0\0\6\0\0\5\0\0\3\376\0\0\"\0\24\0\0\4\0232014-08-05 21:54:06\5", 75, MSG_DONTWAIT) = 75
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\0\5\376\0\0\"\0", 82, MSG_DONTWAIT) = 8
+23:51:17 send(4, "\1\0\0\0\1", 5, MSG_DONTWAIT) = 5
+23:51:17 close(4)                       = 0
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 write(1, "<div class=\"alert alert-warning\" role=\"alert\">Clocked in and working. Completed <span id=\"realtime\">01:57:11</span> hours.</div>", 128) = 128
+23:51:17 write(1, "</div>\n<div id=\"clockDisplay\">\n\t<span id=\"clock\">&nbsp;</span>\n</div>", 69) = 69
+23:51:17 getcwd("/home/mk9/public_html/timeclockdev.mk9.me", 4096) = 42
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 lstat64("/home/mk9/public_html/timeclockdev.mk9.me/./admin.php", {st_dev=makedev(0, 85), st_ino=12592623, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1331, st_atime=2014/08/05-23:42:21, st_mtime=2014/08/05-23:42:13, st_ctime=2014/08/05-23:42:13}) = 0
+23:51:17 open("/home/mk9/public_html/timeclockdev.mk9.me/admin.php", O_RDONLY) = 4
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12592623, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1331, st_atime=2014/08/05-23:42:21, st_mtime=2014/08/05-23:42:13, st_ctime=2014/08/05-23:42:13}) = 0
+23:51:17 lseek(4, 0, SEEK_SET)          = 0
+23:51:17 fcntl64(4, F_GETFL)            = 0 (flags O_RDONLY)
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12592623, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1331, st_atime=2014/08/05-23:42:21, st_mtime=2014/08/05-23:42:13, st_ctime=2014/08/05-23:42:13}) = 0
+23:51:17 mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7745000
+23:51:17 _llseek(4, 0, [0], SEEK_CUR)   = 0
+23:51:17 open("/home/mk9/public_html/timeclockdev.mk9.me/admin.php", O_RDONLY) = 5
+23:51:17 fstat64(5, {st_dev=makedev(0, 85), st_ino=12592623, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1331, st_atime=2014/08/05-23:42:21, st_mtime=2014/08/05-23:42:13, st_ctime=2014/08/05-23:42:13}) = 0
+23:51:17 mmap2(NULL, 1331, PROT_READ, MAP_SHARED, 5, 0) = 0xb7744000
+23:51:17 munmap(0xb7744000, 1331)       = 0
+23:51:17 close(5)                       = 0
+23:51:17 ioctl(4, SNDCTL_TMR_TIMEBASE or TCGETS, 0xbfe2b758) = -1 ENOTTY (Inappropriate ioctl for device)
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12592623, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1331, st_atime=2014/08/05-23:42:21, st_mtime=2014/08/05-23:42:13, st_ctime=2014/08/05-23:42:13}) = 0
+23:51:17 mmap2(NULL, 1363, PROT_READ, MAP_PRIVATE, 4, 0) = 0xb7744000
+23:51:17 _llseek(4, 0, [0], SEEK_CUR)   = 0
+23:51:17 munmap(0xb7744000, 1363)       = 0
+23:51:17 close(4)                       = 0
+23:51:17 munmap(0xb7745000, 4096)       = 0
+23:51:17 socket(PF_FILE, SOCK_STREAM, 0) = 4
+23:51:17 fcntl64(4, F_GETFL)            = 0x2 (flags O_RDWR)
+23:51:17 fcntl64(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+23:51:17 connect(4, {sa_family=AF_FILE, path="/var/lib/mysql/mysql.sock"}, 27) = 0
+23:51:17 fcntl64(4, F_SETFL, O_RDWR)    = 0
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "N\0\0\0", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\n5.5.37-cll\0qx\0\0YICQNs{.\0\377\367\10\2\0\17\200\25\0\0\0\0\0\0\0\0\0\0nd+GeDeP@0n[\0mysql_native_password\0", 82, MSG_DONTWAIT) = 78
+23:51:17 send(4, "m\0\0\1\215\242\17\0\0\0\0\300\10\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0mk9_timeclockdev\0\24)\232\36j;\0171I\372n\334&\374\r\34O\216+.\23mk9_timeclockdev\0mysql_native_password\0", 113, MSG_DONTWAIT) = 113
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\7\0\0\2", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\0\0\2\0\0\0", 82, MSG_DONTWAIT) = 7
+23:51:17 send(4, "1\0\0\0\3SELECT is_admin FROM users WHERE staff_id='1001'", 53, MSG_DONTWAIT) = 53
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\1\0\0\1\1@\0\0\2\3def\20mk9_timeclockdev\5users\5users\10is_admin\10is_admin\f?\0\1\0\0\0\1!\20\0\0\0\5\0", 75, MSG_DONTWAIT) = 75
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\3\376\0\0\"\0\2\0\0\4\0011\5\0\0\5\376\0\0\"\0", 82, MSG_DONTWAIT) = 22
+23:51:17 send(4, "\1\0\0\0\1", 5, MSG_DONTWAIT) = 5
+23:51:17 close(4)                       = 0
+23:51:17 getcwd("/home/mk9/public_html/timeclockdev.mk9.me", 4096) = 42
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 lstat64("/home/mk9/public_html/timeclockdev.mk9.me/./admin.class.php", {st_dev=makedev(0, 85), st_ino=12592133, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1416, st_atime=2014/08/05-23:49:16, st_mtime=2014/08/05-23:49:14, st_ctime=2014/08/05-23:49:14}) = 0
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 lstat64("/home/mk9/public_html/timeclockdev.mk9.me/admin.class.php", {st_dev=makedev(0, 85), st_ino=12592133, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1416, st_atime=2014/08/05-23:49:16, st_mtime=2014/08/05-23:49:14, st_ctime=2014/08/05-23:49:14}) = 0
+23:51:17 open("/home/mk9/public_html/timeclockdev.mk9.me/admin.class.php", O_RDONLY) = 4
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12592133, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1416, st_atime=2014/08/05-23:49:16, st_mtime=2014/08/05-23:49:14, st_ctime=2014/08/05-23:49:14}) = 0
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12592133, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1416, st_atime=2014/08/05-23:49:16, st_mtime=2014/08/05-23:49:14, st_ctime=2014/08/05-23:49:14}) = 0
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12592133, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1416, st_atime=2014/08/05-23:49:16, st_mtime=2014/08/05-23:49:14, st_ctime=2014/08/05-23:49:14}) = 0
+23:51:17 mmap2(NULL, 1416, PROT_READ, MAP_SHARED, 4, 0) = 0xb7745000
+23:51:17 open("/home/mk9/public_html/timeclockdev.mk9.me/admin.class.php", O_RDONLY) = 5
+23:51:17 fstat64(5, {st_dev=makedev(0, 85), st_ino=12592133, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1416, st_atime=2014/08/05-23:49:16, st_mtime=2014/08/05-23:49:14, st_ctime=2014/08/05-23:49:14}) = 0
+23:51:17 mmap2(NULL, 1416, PROT_READ, MAP_SHARED, 5, 0) = 0xb7744000
+23:51:17 munmap(0xb7744000, 1416)       = 0
+23:51:17 close(5)                       = 0
+23:51:17 munmap(0xb7745000, 1416)       = 0
+23:51:17 close(4)                       = 0
+23:51:17 socket(PF_FILE, SOCK_STREAM, 0) = 4
+23:51:17 fcntl64(4, F_GETFL)            = 0x2 (flags O_RDWR)
+23:51:17 fcntl64(4, F_SETFL, O_RDWR|O_NONBLOCK) = 0
+23:51:17 connect(4, {sa_family=AF_FILE, path="/var/lib/mysql/mysql.sock"}, 27) = 0
+23:51:17 fcntl64(4, F_SETFL, O_RDWR)    = 0
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "N\0\0\0", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\n5.5.37-cll\0rx\0\0KUIL#igI\0\377\367\10\2\0\17\200\25\0\0\0\0\0\0\0\0\0\0w=hr(lkR9cie\0mysql_native_password\0", 82, MSG_DONTWAIT) = 78
+23:51:17 send(4, "m\0\0\1\215\242\17\0\0\0\0\300\10\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0mk9_timeclockdev\0\24k$f\7\275\310\364\200\201\204\227^NIG\0\177?fgmk9_timeclockdev\0mysql_native_password\0", 113, MSG_DONTWAIT) = 113
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\7\0\0\2", 4, MSG_DONTWAIT) = 4
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\0\0\2\0\0\0", 82, MSG_DONTWAIT) = 7
+23:51:17 send(4, "[\0\0\0\3SELECT staff_id, first_name, last_name, is_working, schedule FROM users WHERE is_working=1", 95, MSG_DONTWAIT) = 95
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\1\0\0\1\5@\0\0\2\3def\20mk9_timeclockdev\5users\5users\10staff_id\10staff_id\f?\0\v\0\0\0\3!\20\0\0\0D\0", 75, MSG_DONTWAIT) = 75
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\0\3\3def\20mk9_timeclockdev\5users\5users\nfirst_name\nfirst_name\f\10\0 \0\0\0\375\1\20\0\0\0B\0\0\4\3def\20mk9", 82, MSG_DONTWAIT) = 82
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "_timeclockdev\5users\5users\tlast_name\tlast_name\f\10\0 \0\0\0\375\1\20\0\0\0D\0\0\5\3def\20mk9_timeclockde", 82, MSG_DONTWAIT) = 82
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "v\5users\5users\nis_working\nis_working\f?\0\1\0\0\0\1 \0\0\0\0@\0\0\6\3def\20mk9_timeclockdev\5users\5us", 82, MSG_DONTWAIT) = 82
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "ers\10schedule\10schedule\f\10\0\0\1\0\0\375\0\0\0\0\0\5\0\0\7\376\0\0\"\0\31\0\0\10\0041001\6Marcus\tGutierrez\0011\373\22\0\0\t\0041004\3", 82, MSG_DONTWAIT) = 82
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "Ben\5Eaton\0011\373\5\0\0\n\376\0\0\"\0", 82, MSG_DONTWAIT) = 21
+23:51:17 write(1, "<pre>", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "0", 1)               = 1
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "staff_id", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1001", 4)            = 4
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "first_name", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Marcus", 6)          = 6
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "last_name", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Gutierrez", 9)       = 9
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "is_working", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1", 1)               = 1
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "schedule", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "1", 1)               = 1
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "staff_id", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1004", 4)            = 4
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "first_name", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Ben", 3)             = 3
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "last_name", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Eaton", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "is_working", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1", 1)               = 1
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "schedule", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "</pre>", 6)          = 6
+23:51:17 send(4, "C\0\0\0\3SELECT MAX(timestamp) as timestamp FROM punches WHERE user_id=NULL", 71, MSG_DONTWAIT) = 71
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\1\0\0\1\1\37\0\0\2\3def\0\0\0\ttimestamp\0\f\10\0\23\0\0\0\f\0\0\6\0\0\5\0\0\3\376\0\0\"\0\1\0\0\4\373\5\0\0\5\376\0\0", 61, MSG_DONTWAIT) = 61
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\"\0", 82, MSG_DONTWAIT) = 2
+23:51:17 write(1, "<pre>", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "timestamp", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "</pre>", 6)          = 6
+23:51:17 send(4, "C\0\0\0\3SELECT MAX(timestamp) as timestamp FROM punches WHERE user_id=NULL", 71, MSG_DONTWAIT) = 71
+23:51:17 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN}])
+23:51:17 recv(4, "\1\0\0\1\1\37\0\0\2\3def\0\0\0\ttimestamp\0\f\10\0\23\0\0\0\f\0\0\6\0\0\5\0\0\3\376\0\0\"\0\1\0\0\4\373\5\0\0\5\376\0\0\"\0", 80, MSG_DONTWAIT) = 63
+23:51:17 write(1, "<pre>", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "timestamp", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "</pre>", 6)          = 6
+23:51:17 send(4, "\1\0\0\0\1", 5, MSG_DONTWAIT) = 5
+23:51:17 close(4)                       = 0
+23:51:17 write(1, "    \n<h2>Users Currently Working</h2>\n<table class=\"table table-striped table-hover \">\n  <thead>\n    <tr>\n      <th>Name</th>\n      <th>Clocked In</th>\n      <th>Hours Worked</th>\n      <th>Punch</th>\n    </tr>\n  </thead>\n  <tbody>\n", 232) = 232
+23:51:17 write(1, "<pre>", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "0", 1)               = 1
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "staff_id", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1001", 4)            = 4
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "first_name", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Marcus", 6)          = 6
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "last_name", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Gutierrez", 9)       = 9
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "is_working", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1", 1)               = 1
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "schedule", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "timestamp", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "1", 1)               = 1
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Array\n", 6)         = 6
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "(\n", 2)             = 2
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "staff_id", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1004", 4)            = 4
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "first_name", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Ben", 3)             = 3
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "last_name", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "Eaton", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "is_working", 10)     = 10
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "1", 1)               = 1
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "schedule", 8)        = 8
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, "[", 1)               = 1
+23:51:17 write(1, "timestamp", 9)       = 9
+23:51:17 write(1, "] => ", 5)           = 5
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, " ", 1)               = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "\n", 1)              = 1
+23:51:17 write(1, ")\n", 2)             = 2
+23:51:17 write(1, "</pre>", 6)          = 6
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 write(1, "<tr>", 4)            = 4
+23:51:17 write(1, "<td>Marcus Gutierrez</td>", 25) = 25
+23:51:17 write(1, "<td> clocked in </td>", 21) = 21
+23:51:17 write(1, "<td> Hours Worked</td>", 22) = 22
+23:51:17 write(1, "<td> Punch </td>", 16) = 16
+23:51:17 write(1, "</tr>", 5)           = 5
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 write(1, "<tr>", 4)            = 4
+23:51:17 write(1, "<td>Ben Eaton</td>", 18) = 18
+23:51:17 write(1, "<td> clocked in </td>", 21) = 21
+23:51:17 write(1, "<td> Hours Worked</td>", 22) = 22
+23:51:17 write(1, "<td> Punch </td>", 16) = 16
+23:51:17 write(1, "</tr>", 5)           = 5
+23:51:17 write(1, "\n  </tbody>\n</table>\n\n\n", 23) = 23
+23:51:17 getcwd("/home/mk9/public_html/timeclockdev.mk9.me", 4096) = 42
+23:51:17 time(NULL)                     = 1407300677
+23:51:17 lstat64("/home/mk9/public_html/timeclockdev.mk9.me/./footer.php", {st_dev=makedev(0, 85), st_ino=12593953, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1748, st_atime=2014/08/05-23:42:22, st_mtime=2014/08/04-23:41:16, st_ctime=2014/08/04-23:41:16}) = 0
+23:51:17 open("/home/mk9/public_html/timeclockdev.mk9.me/footer.php", O_RDONLY) = 4
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12593953, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1748, st_atime=2014/08/05-23:42:22, st_mtime=2014/08/04-23:41:16, st_ctime=2014/08/04-23:41:16}) = 0
+23:51:17 lseek(4, 0, SEEK_SET)          = 0
+23:51:17 fcntl64(4, F_GETFL)            = 0 (flags O_RDONLY)
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12593953, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1748, st_atime=2014/08/05-23:42:22, st_mtime=2014/08/04-23:41:16, st_ctime=2014/08/04-23:41:16}) = 0
+23:51:17 mmap2(NULL, 4096, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0xb7745000
+23:51:17 _llseek(4, 0, [0], SEEK_CUR)   = 0
+23:51:17 open("/home/mk9/public_html/timeclockdev.mk9.me/footer.php", O_RDONLY) = 5
+23:51:17 fstat64(5, {st_dev=makedev(0, 85), st_ino=12593953, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1748, st_atime=2014/08/05-23:42:22, st_mtime=2014/08/04-23:41:16, st_ctime=2014/08/04-23:41:16}) = 0
+23:51:17 mmap2(NULL, 1748, PROT_READ, MAP_SHARED, 5, 0) = 0xb7744000
+23:51:17 munmap(0xb7744000, 1748)       = 0
+23:51:17 close(5)                       = 0
+23:51:17 ioctl(4, SNDCTL_TMR_TIMEBASE or TCGETS, 0xbfe2b758) = -1 ENOTTY (Inappropriate ioctl for device)
+23:51:17 fstat64(4, {st_dev=makedev(0, 85), st_ino=12593953, st_mode=S_IFREG|0644, st_nlink=1, st_uid=510, st_gid=508, st_blksize=4096, st_blocks=8, st_size=1748, st_atime=2014/08/05-23:42:22, st_mtime=2014/08/04-23:41:16, st_ctime=2014/08/04-23:41:16}) = 0
+23:51:17 mmap2(NULL, 1780, PROT_READ, MAP_PRIVATE, 4, 0) = 0xb7744000
+23:51:17 _llseek(4, 0, [0], SEEK_CUR)   = 0
+23:51:17 munmap(0xb7744000, 1780)       = 0
+23:51:17 close(4)                       = 0
+23:51:17 munmap(0xb7745000, 4096)       = 0
+23:51:17 write(1, "    </div> <!-- /container -->\n<script type=\"text/javascript\">\n\n$(document).ready(function(){\n    $(\".close\").click(function(){\n        $(\".alert\").alert();\n    });\n});  \n\nfunction plz(digit){\n \n    var zpad = digit + '';\n    if (digit < 10) {\n        zpad = \"0\" + zpad;\n    }\n    return zpad;\n}\n\n\nfunction updateClock ()\n{\n  var currentTime = new Date ();\n\n  var currentHours = currentTime.getHours ();\n  var currentMinutes = currentTime.getMinutes ();\n  var currentSeconds = currentTime.getSeconds ();\n\n  // Pad the minutes and seconds with leading zeros, if required\n  currentMinutes = ( currentMinutes < 10 ? \"0\" : \"\" ) + currentMinutes;\n  currentSeconds = ( currentSeconds < 10 ? \"0\" : \"\" ) + currentSeconds;\n\n  // Choose either \"AM\" or \"PM\" as appropriate\n  var timeOfDay = ( currentHours < 12 ) ? \"AM\" : \"PM\";\n\n  // Convert the hours component to 12-hour format if needed\n  currentHours = ( currentHours > 12 ) ? currentHours - 12 : currentHours;\n\n  // Convert an hours component of \"0\" to \"12"..., 1748) = 1748
+23:51:17 chdir("/home/mk9/public_html/timeclockdev.mk9.me") = 0
+23:51:17 setitimer(ITIMER_PROF, {it_interval={0, 0}, it_value={0, 0}}, NULL) = 0
+23:51:17 pwrite64(3, "user_agent|s:181:\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/535.2 (KHTML, like Gecko) Fedora/16 (mugzcQZkVAPNB1Q9p98jeJrUhWfWBB452UZduTm+iPI=) Chromium/21.0.1180.81 Chrome/21.0.1180.81 Safari/535.2\";remote_ip|s:12:\"192.185.1.20\";timeout|i:1407300677;sid|s:4:\"1001\";fn|s:6:\"Marcus\";ln|s:9:\"Gutierrez\";", 302, 0) = 302
+23:51:17 close(3)                       = 0
+23:51:17 setitimer(ITIMER_PROF, {it_interval={0, 0}, it_value={0, 0}}, NULL) = 0
+23:51:17 munmap(0xb62a0000, 30552)      = 0
+23:51:17 munmap(0xb62a8000, 761092)     = 0
+23:51:17 munmap(0xb6362000, 108360)     = 0
+23:51:17 munmap(0xb7746000, 7672)       = 0
+23:51:17 gettimeofday({1407300677, 292171}, NULL) = 0
+23:51:17 munmap(0xb637d000, 1075516)    = 0
+23:51:17 munmap(0xb64ac000, 1052672)    = 0
+23:51:17 munmap(0xb65ad000, 266240)     = 0
+23:51:17 munmap(0xb6484000, 163840)     = 0
+23:51:17 exit_group(0)                  = ?
+Process 29646 detached
