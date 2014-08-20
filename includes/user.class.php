@@ -428,8 +428,15 @@ class User {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         try {
-            $data = $db->prepare('UPDATE users SET schedule=:schedule WHERE staff_id=:userid');
-            $data->bindParam(':schedule', $newSchedule);
+            
+            if ($newSchedule == false) {
+                // delete schedule
+                $data = $db->prepare('UPDATE users SET schedule="" WHERE staff_id=:userid');
+            } else {
+                $data = $db->prepare('UPDATE users SET schedule=:schedule WHERE staff_id=:userid');
+                $data->bindParam(':schedule', $newSchedule);
+            }
+            
             $data->bindParam(':userid', $this->userID);
             $data->execute();
             //$result = $data->fetch(PDO::FETCH_ASSOC);

@@ -34,6 +34,7 @@ $userIsWorking = $user->isWorking();
   </head>
 
   <body onload="updateClock(); setInterval('updateClock()', 1000 ) ">
+
   <div id="container">
   
   <div class="navbar navbar-default">

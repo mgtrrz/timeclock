@@ -12,7 +12,14 @@ if (isset($_POST['edit'])) {
     $editMode = false;
 }
 
+if (isset($_POST['remove'])) {
+    $user->setSchedule(false);
+    $alert = new Message("Schedule successfully removed!", "alert-success");
+}
+
 $daysOfWeek = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+
+$error = array();
 
 if (isset($_POST['submit'])) {
     // We're creating an array of our new schedule here.
@@ -20,31 +27,75 @@ if (isset($_POST['submit'])) {
     
     foreach ($daysOfWeek as $day) {
         
-        // Sanitation checks must be performed here!
-        $postDayStart = strtolower($day)."_start";
-        $postDayEnd = strtolower($day)."_end";
-        $postDayBreak = strtolower($day)."_break";
+        $postDayStart = $_POST[strtolower($day)."_start"];
+        $postDayEnd = $_POST[strtolower($day)."_end"];
+        $postDayBreak = $_POST[strtolower($day)."_break"];
         
-        if ($_POST[$postDayStart] != "") {
+        // Sanitation checks!
+        if ($postDayStart != "") {
             
-            $newSchedule[strtolower($day)] = array(
-                    'start' => $_POST[$postDayStart],
-                    'end' => $_POST[$postDayEnd]
-            );
+            $checkedDayStart = isValidTime($postDayStart);
             
-            if ($_POST[$postDayBreak] != "") {
-                $newSchedule[strtolower($day)]['break'] = $_POST[$postDayBreak];
-            } 
-            
+            // if isValidTime returned false
+            if (!$checkedDayStart) {
+                $malformed = true;
+                $error[] = strtolower($day)."_start";
+            } else {
+                // looks okay.. let's add it to the new Schedule array
+                $newSchedule[strtolower($day)]['start'] = $checkedDayStart;
+            }
             
         } else {
             $newSchedule[strtolower($day)] = 0;
         }
-
+        
+        // DAY END
+        if ($postDayEnd != "") {
+            
+            $checkedDayEnd = isValidTime($postDayEnd);
+            
+            if ($checkedDayEnd == $checkedDayStart) {
+                $malformed = true;
+                $error[] = strtolower($day)."_start";
+                $error[] = strtolower($day)."_end";
+            }
+            
+            // if isValidTime returned false
+            if (!$checkedDayEnd) {
+                $malformed = true;
+                $error[] = strtolower($day)."_end";
+            } else {
+                // looks okay.. let's add it to the new Schedule array
+                $newSchedule[strtolower($day)]['end'] = $checkedDayEnd;
+            }
+            
+        } else {
+            $newSchedule[strtolower($day)] = 0;
+        }
+        
+        // DAY BREAK
+        if ($postDayBreak != "") {
+            
+            $checkedDayBreak = isValidTime($postDayBreak);
+            
+            if (!$checkedDayBreak) {
+                $malformed = true;
+                $error[] = strtolower($day)."_break";
+            } else {
+                // looks okay.. let's add it to the new Schedule array
+                if ($newSchedule[strtolower($day)] != 0 )
+                    $newSchedule[strtolower($day)]['break'] = $checkedDayBreak;
+            }
+        }
+        
+        
+        
     }
     
+    
+    // Attempting to push to the database..
     if (!$malformed) {
-        
+        // Nothing above failed.
         $jsonEncodedSchedule = json_encode($newSchedule);
         
         if (json_encode($newSchedule)) {
@@ -58,7 +109,14 @@ if (isset($_POST['submit'])) {
             $editMode = 1;
         }
         
-        
+    } else {
+        // A sanitary check above failed and this issue will need to be presented to the user.
+        // We will later add a red box around the bad input boxes to show the user what needs correcting.
+        //echo "<pre>";
+        //print_r($error);
+        //echo "</pre>";
+        $alert = new Message("Incorrectly formatted time. Please correct the errors above.", "alert-danger");
+        $editMode = 1;
     }
     
 }
@@ -74,6 +132,14 @@ if ($editMode) {
 
 
 if ($userSchedule != false ||$editMode) {
+    
+    if ($editMode) {
+        echo "<div class='well well-sm'><p><strong>Instructions:</strong> Enter hours in 24 hour format. Single numbers (e.g. 8, 14, 22) 
+              can also be entered and will automatically be converted to a time format. 
+              To schedule a day off, simply leave start and end times for that day blank. For midnight, enter either 24:00 or 0:00. 
+              If 24 is entered, it will automatically be changed to 0:00.</p></div>";
+    }
+    
     ?>
     <table class="table table-striped table-hover ">
       <thead>
@@ -87,8 +153,10 @@ if ($userSchedule != false ||$editMode) {
       </thead>
       <tbody>
     <?php
-
-    $daysOfWeek = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+    
+    $totalHoursScheduled = 0;
+    
+    //$daysOfWeek = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
     
     foreach ($daysOfWeek as $day) {
         
@@ -110,24 +178,59 @@ if ($userSchedule != false ||$editMode) {
         
         if ($editMode) {
             
-            if ($editMode) 
-                echo "<form method='post' role='form'>\n";
+            if ($editMode) echo "<form method='post' role='form'>\n";
             
             // EDIT MODE 
             echo "<tr>\n";
         	echo "<td>".$day."</td>\n";
         	if ($userSchedule[strtolower($day)] == 0) {
-        	    echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_start' ></input></td>\n";
-        	    echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_end' ></input></td>\n";
-        	    echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_break' ></input></td>\n";
+        	    
+        	    // For any entries in the error array, we'll be displaying a red line around the input box and add the POST data back in.
+        	    // WE SHOULD PROBABLY FORMAT THIS!
+        	    if (in_array(strtolower($day)."_start", $error)) {
+        	        echo "<td><div class='form-group has-error'><input class='form-control input-sm' type='text' name='". strtolower($day) ."_start' value=".$_POST[strtolower($day)."_start"]."></input></div></td>\n";
+        	    } else {
+        	        echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_start' ></input></td>\n";
+        	    }
+        	    
+        	    if (in_array(strtolower($day)."_end", $error)) {
+        	        echo "<td><div class='form-group has-error'><input id='inputError' class='form-control input-sm' type='text' name='". strtolower($day) ."_end' value=".$_POST[strtolower($day)."_end"]."></input></div></td>\n";
+        	    } else {
+        	        echo "<td><input id='inputError' class='form-control input-sm' type='text' name='". strtolower($day) ."_end' ></input></td>\n";
+        	    }
+        	    
+        	    if (in_array(strtolower($day)."_break", $error)) {
+        	        echo "<td><div class='form-group has-error'><input class='form-control input-sm' type='text' name='". strtolower($day) ."_break' value=".$_POST[strtolower($day)."_break"]."></input></div></td>\n";
+        	    } else {
+        	        echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_break' ></input></td>\n";
+        	    }
+        	   
         	} else {
-        	    echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_start' value='".$userSchedule[strtolower($day)]['start']."'></input></td>\n";
-                echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_end' value='".$userSchedule[strtolower($day)]['end']."'></input></td>\n";
-                echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_break' value='".$userSchedule[strtolower($day)]['break']."'></input></td>\n";
+        	    
+        	    if (in_array(strtolower($day)."_start", $error)) {
+        	        echo "<td><div class='form-group has-error'><input class='form-control input-sm' type='text' name='". strtolower($day) ."_start' value='".$_POST[strtolower($day)."_start"]."'></input></div></td>\n";
+        	    } else {
+        	        echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_start' value='".$userSchedule[strtolower($day)]['start']."'></input></td>\n";
+        	    }
+        	    
+        	    if (in_array(strtolower($day)."_end", $error)) {
+                    echo "<td><div class='form-group has-error'><input class='form-control input-sm' type='text' name='". strtolower($day) ."_end' value='".$_POST[strtolower($day)."_end"]."'></input></div></td>\n";
+                } else {
+                    echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_end' value='".$userSchedule[strtolower($day)]['end']."'></input></td>\n";
+                }
+                
+                if (in_array(strtolower($day)."_break", $error)) {
+                    echo "<td><div class='form-group has-error'><input class='form-control input-sm' type='text' name='". strtolower($day) ."_break' value='".$_POST[strtolower($day)."_break"]."'></input></div></td>\n";
+                } else {
+                    echo "<td><input class='form-control input-sm' type='text' name='". strtolower($day) ."_break' value='".$userSchedule[strtolower($day)]['break']."'></input></td>\n";
+                }
+                
         	}
             echo "</tr>\n";
             
         } else {
+            
+            // NOT EDITING MODE!
             echo "<tr>\n";
         	echo "<td>".$day."</td>\n";
         	if ($userSchedule[strtolower($day)] == 0) {
@@ -144,24 +247,30 @@ if ($userSchedule != false ||$editMode) {
             echo "</tr>\n";
         }
         
+        $totalHoursScheduled += $hoursScheduled;
+        
     }
     
     echo "</tbody>\n";
     echo "</table>\n";
     
-    if ($alert) { $alert->displayMessage(); }
+    echo "<strong>Total Hours:</strong> $totalHoursScheduled\n<br><br>";
+    
+    
 } // END if ($userSchedule != false)
+
+if ($alert) { $alert->displayMessage(); }
 
 if ($user->isFreelance() || $user->isAdmin()) {
     
     if (!$editMode) 
         echo "<form method='post' role='form'>\n";
     
-    if ($userSchedule != false)
+    if ($userSchedule != false || $editMode)
         if ($editMode) {
             echo '<button type="submit" name="submit" class="btn btn-success">Submit Changes</button> <a href="schedule" class="btn btn-danger">Cancel</a>';
         } else {
-            echo '<button type="submit" name="edit" class="btn btn-primary">Edit Schedule</button> <button type="submit" name="remove" class="btn btn-danger">Remove Schedule</button>';
+            echo '<button type="submit" name="edit" class="btn btn-primary">Edit Schedule</button> <button type="submit" name="remove" class="btn btn-danger" onclick="confirmRemoval();">Remove Schedule</button>';
         }
         
     else
@@ -175,3 +284,4 @@ if ($user->isFreelance() || $user->isAdmin()) {
 }
 
 ?>
+

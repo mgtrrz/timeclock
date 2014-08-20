@@ -85,27 +85,47 @@ function timeBetweenDatesWithSeconds($startDate, $endDate = "") {
 		
 	return $interval->format('%H:%I:%S');
 }
-/*
-function timeBetweenDatesFULL($startDate, $endDate = "") {
-	if ($endDate == "") {
-		$endDate = date("Y-m-d H:i:s");
-	}
 
-	$startedWorking = new DateTime($startDate);
-	$currentTime = new DateTime($endDate);
-	$interval = $startedWorking->diff($currentTime);
-		
-	return $interval->format('%Y-%M-%D %H:%I:%S');
+function isValidTime($time) {
+    
+    // Checks if its numeric (single value) and if its greater than 0 or less than 24.
+    if (is_numeric($time) && $time >= 0 && $time <= 24) {
+        
+        $time = abs(intval($time));
+        
+        if ($time == 24) {
+            $time = "0:00";
+        } else {
+            $time = $time.":00";
+        }
+        
+        if (strtotime($time)) {
+            return $time;
+        } else {
+            return false;
+        }
+        
+    }
+    
+    if (preg_match('/^(([0-1]?[0-9]|2[0-3]):[0-5][0-9]|24:00)$/', $time)) {
+        if ($time == "24:00") {
+            $time = "0:00";
+        }
+        
+        if (strtotime($time)) {
+            return $time;
+        } else {
+            return false;
+        }
+        
+    } else {
+        // EVERYTHING ELSE FAILED THIS ISN'T RIGHT!
+        return false;
+    }
+    
 }
 
-function displayAlertBox($message, $style) {
-	echo '<div id="alert">';
-	echo '<div class="alert '.$style.' fade in"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>'.$message.'</div>'; 
-	//$alert = "";
-	//$alertStyle = ""; 
-	echo '</div>';
-}
-*/
+
 function session() {
     // initiate/resume our session: Checking for user agent and IP address
     session_start();
@@ -114,8 +134,8 @@ function session() {
     $_SESSION['timeout'] = time();
     
     if ($_SESSION['user_agent'] != $_SERVER['HTTP_USER_AGENT'] || $_SESSION['remote_ip'] != $_SERVER['REMOTE_ADDR']) {
-        $ErrorMessage = "User agent or Remote IP discrepency! Forcing close session of user ".$_SESSION['sid'].". Session saved user_agent: ".$_SESSION['user_agent']." -- Reported User Agent: ".$_SERVER['HTTP_USER_AGENT'].". Session saved Remote IP address: ". $_SESSION['remote_ip'] ." -- Reported Remote IP: ".$_SERVER['REMOTE_ADDR'];
-        error_log($ErrorMessage);
+        //$ErrorMessage = "User agent or Remote IP discrepency! Forcing close session of user ".$_SESSION['sid'].". Session saved user_agent: ".$_SESSION['user_agent']." -- Reported User Agent: ".$_SERVER['HTTP_USER_AGENT'].". Session saved Remote IP address: ". $_SESSION['remote_ip'] ." -- Reported Remote IP: ".$_SERVER['REMOTE_ADDR'];
+        //error_log($ErrorMessage);
         destroy_session();
         // We'll also send a message to display at the top notifying that session information changed.
         header("Location: login.php");
@@ -124,8 +144,8 @@ function session() {
     
     
     if (isset($_SESSION['timeout']) && (time() - $_SESSION['timeout'] > 172800)) {
-        $ErrorMessage2 = "Session timed out! Forcing close session of user ". $_SESSION['sid']. ". Session saved timeout: ". $_SESSION['timeout'];
-        error_log($ErrorMessage2);
+        //$ErrorMessage2 = "Session timed out! Forcing close session of user ". $_SESSION['sid']. ". Session saved timeout: ". $_SESSION['timeout'];
+        //error_log($ErrorMessage2);
         
         destroy_session();
         // We'll also send a message to display at the top notifying that the session has expired.

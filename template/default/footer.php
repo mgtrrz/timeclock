@@ -16,6 +16,26 @@ $(document).ready(function(){
     
 });  
 
+function confirmRemoval() {
+
+    if (confirm('Are you sure you want to remove your schedule?')) {
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        //form.setAttribute("action", path);
+    
+        var hiddenField = document.createElement("input");
+        hiddenField.setAttribute("type", "hidden");
+        hiddenField.setAttribute("name", "confirm");
+        hiddenField.setAttribute("value", "true");
+
+        form.appendChild(hiddenField);
+    
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+}
+
 
 function plz(digit){
  
