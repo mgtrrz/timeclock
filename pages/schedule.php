@@ -12,7 +12,7 @@ if (isset($_POST['edit'])) {
     $editMode = false;
 }
 
-if (isset($_POST['remove'])) {
+if (isset($_POST['confirmDeletion'])) {
     $user->setSchedule(false);
     $alert = new Message("Schedule successfully removed!", "alert-success");
 }
@@ -270,7 +270,7 @@ if ($user->isFreelance() || $user->isAdmin()) {
         if ($editMode) {
             echo '<button type="submit" name="submit" class="btn btn-success">Submit Changes</button> <a href="schedule" class="btn btn-danger">Cancel</a>';
         } else {
-            echo '<button type="submit" name="edit" class="btn btn-primary">Edit Schedule</button> <button type="submit" name="remove" class="btn btn-danger" onclick="confirmRemoval();">Remove Schedule</button>';
+            echo '<button type="submit" name="edit" class="btn btn-primary">Edit Schedule</button> <button type="submit" class="btn btn-danger" name="confirmDeletion" onclick="return confirm(\'Are you sure you want to remove your schedule?\')">Remove Schedule</button>';
         }
         
     else
@@ -284,4 +284,3 @@ if ($user->isFreelance() || $user->isAdmin()) {
 }
 
 ?>
-
