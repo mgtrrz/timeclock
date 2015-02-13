@@ -1,0 +1,89 @@
+#############
+Version 0.7.1
+~
+* Completed x hours now has seconds updated to match real time.
+
+
+#############
+Version 0.7
+January 10 2015
++ 12hr/24hr support (toggled in Profile edit)
++ Added Earnings notification box for Freelance users. This appears after clocking out.
+- Removed Chtr.me (Service now defunct) username form in Profile Edit page
+* Fixed statistics and users class bug.
+* Admin Users dropdown in Statistics page now shows the user that you're viewing statistics for.
+* Output by user added notes are properly sanitized.
+* Classes/Functions are now better documented and organized.
+* Forbidden message altered on pages where user is not allowed to see a specific page.
+* Wording altered on schedule page where users do not have a schedule set up and cannot set it up themselves.
+
+
+#############
+Version 0.6.1
+December 28 2014
+* CSV export is now properly working
+
+
+#############
+Version 0.6
+December 27 2014
++ Earnings support
++ Actually working Statistics page
+    + Calendar (monthly) view of days worked
+    + Statistics including days worked, per hour, average hours, etc.
+    + Export to CSV implemented (but not yet operational)
++ Punches can now be edited to include earnings
++ Preliminary support for different style pay periods
+- Removed Earnings from Menu bar
+
+
+#############
+Version 0.5.5
+October 11 2014
++ Added statistics page
+* Fixed bug where fields were editable for admins in punch mode despite not being in edit mode.
+* Fixed bug where users did not have color for hours worked (after shift end) in admin page.
+* Fixed bug where if no users were scheduled to work tomorrow, admin main page would not display recent punches
+
+
+#############
+Version 0.5.2
+September 15 2014
+* Fixed bug where punch details were automatically saving for Freelance users.
+
+
+#############
+Version 0.5.1
+September 14 2014
+
++ Per punch details and editing. (Added delete button but not yet functional)
++ Greeting presented to users with schedule.
++ Tooltips now show for long notes on main page.
+* Delete schedule was moved to inside "Edit Schedule" mode.
+
+
+#############
+Version 0.4.0
+August 25 2014
+
++ Added ability to add notes per punch.
++ Alerts fade and close out after 5 seconds.
++ In Admin page, "Currently Working" displays Orange if they have worked at all, Green if they have completed a shift.
++ Punch in and out users from User Edit page.
+* Changed "CurrentlyWorking" box to different style
+* Fixed bug related to shifts going into the next day.
+* Fixed link colors in admin main page.
+* Admin main page finally returns combined hours worked.
+* Fixed missing style for danger alerts in admin panel.
+
+
+
+##############
+Version 0.3.10
+
+August 23 2014
+
++ Scheduling viewing/editing added
++ Admin features extended; Per user modifications
++ Versioning introduced
++ Favicon

@@ -3,19 +3,150 @@
 class User {
     private $userID;
     private $userIP;
+    private $admin;
+    public $firstName;
+    public $lastName;
+    private $timeFormat;
     
     public function __construct($userID) {
         $this->userIP = getUserIP();
         if (isset($userID)) {
             $this->userID = $userID;
+        } else {
+            // Fall back... if no userID is provided.. grab the session user ID
+            $this->userID = $_SESSION['sid'];
         }
+        
+        // Set the user's name and add it to the class' variables
+        $this->setUserRealName();
+        // Set their preferred 12/24 hr format
+        $this->timeFormat();
     }
     
+    
+    /**
+     * Sets the User ID for this User instance.
+     *
+     * @param   string    user ID.
+     * @access  public
+     */
     public function setUserID($userID){
         if (isset($userID)) {
             $this->userID = $userID;
         }
+        
+        $this->setUserRealName();
     }
+    
+    public function timeFormat() {
+        
+        if (empty($timeFormat)) {
+            $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+            try {
+                $data = $db->prepare('select time_format from users WHERE staff_id=:userid');
+                $data->bindParam(':userid', $this->userID);
+                $data->execute();
+                $result = $data->fetch(PDO::FETCH_ASSOC);
+                $db = null;
+                
+                if (!empty($result)) {
+                    if ($result['time_format'] ==  "12") {
+                        $this->timeFormat = "12";
+                        return "12";
+                    } elseif ($result['time_format'] == "24") {
+                        $this->timeFormat = "24";
+                        return "24";
+                    } else {
+                        $this->timeFormat = "24";
+                        return "24";
+                    }
+                }
+                
+            } catch(PDOException $db) {
+                echo 'ERROR: ' . $db->getMessage();
+            }
+            
+        } else {
+            return $timeFormat;
+        }
+        
+    }
+    
+    public function askForEarnings() {
+        return true;
+    }
+    
+    public function createdDate() {
+        
+        $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+        try {
+            $data = $db->prepare('select created from users WHERE staff_id=:userid');
+            $data->bindParam(':userid', $this->userID);
+            $data->execute();
+            $result = $data->fetch(PDO::FETCH_ASSOC);
+            $db = null;
+            
+            if (!empty($result)) {
+                return $result['created'];
+            } else {
+                // Returning a default date
+                return "2014-01-01";
+            }
+            
+        } catch(PDOException $db) {
+            echo 'ERROR: ' . $db->getMessage();
+            return "2014-01-01";
+        }
+
+        
+    }
+    
+    public function setTimeFormat($newFormat) {
+        
+        if ($newFormat != $timeFormat) {
+            $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            // uh..
+            /*
+            if ($newFormat != "24" && $newFormat != "12") {
+                $newFormat = "24";
+            }
+            */
+            
+            try {
+                $data = $db->prepare('UPDATE users SET time_format=:newformat WHERE staff_id=:userid');
+                $data->bindParam(':newformat', $newFormat);
+                $data->bindParam(':userid', $this->userID);
+                if ($data->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            } catch(PDOException $db) {
+                echo 'ERROR: ' . $db->getMessage();
+                return false;
+            }
+            
+        } 
+        
+    }
+    
+    
+    /**
+     * Returns the User ID for this User instance.
+     *
+     * @return   string    user ID.
+     * @access  public
+     */
+    public function getUserID() { return $this->userID; }
+    
+    
     
     /**
      * Returns the full name of the user
@@ -25,6 +156,18 @@ class User {
      * @access  public
      */
     public function getUserRealName($formatted = false) {
+        
+        if ($formatted) {
+            return $this->firstName." ".$this->lastName;
+        } else {
+            $nameArray = array("first_name" => $this->firstName, "last_name" => $this->lastName);
+            return $nameArray;
+        }
+
+    }
+    
+    
+    private function setUserRealName() {
 	    $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -35,20 +178,13 @@ class User {
             $result = $data->fetch(PDO::FETCH_ASSOC);
             $db = null;
             
-            
-            if ($formatted) {
-                return $result['first_name']." ".$result['last_name'];
-            } else {
-                return $result;
-            }
+            $this->firstName = $result['first_name'];
+            $this->lastName = $result['last_name'];
             
         } catch(PDOException $db) {
             echo 'ERROR: ' . $db->getMessage();
         }
     }
-    
-    public function getUserID() { return $this->userID; }    
-    
     
     /**
      * Verifies if the user is working according to what is set in the users table.
@@ -67,7 +203,12 @@ class User {
             $data->execute();
             $result = $data->fetch(PDO::FETCH_ASSOC);
             $db = null;
-            return $result['is_working'];
+            //return $result['is_working'];
+            
+            if ($result['is_working'] == 1)
+                return true;
+            else
+                return false;
             
         } catch(PDOException $db) {
             //echo $errorMsg;
@@ -82,21 +223,32 @@ class User {
      * @access public
      */
     public function isAdmin() {
-        $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-        try {
-            $data = $db->prepare('SELECT is_admin FROM users WHERE staff_id=:userid');
-            $data->bindParam(':userid', $this->userID);
-            $data->execute();
-            $result = $data->fetch(PDO::FETCH_ASSOC);
-            $db = null;
-            return $result['is_admin'];
+        
+        if ($this->admin == "") {
+            $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
-        } catch(PDOException $db) {
-            //echo $errorMsg;
-            echo 'ERROR: ' . $db->getMessage();
+            try {
+                $data = $db->prepare('SELECT is_admin FROM users WHERE staff_id=:userid');
+                $data->bindParam(':userid', $this->userID);
+                $data->execute();
+                $result = $data->fetch(PDO::FETCH_ASSOC);
+                $db = null;
+                
+                if ($this->admin == "") {
+                    $this->admin = $result['is_admin'];
+                }
+                
+                return $result['is_admin'];
+                
+            } catch(PDOException $db) {
+                //echo $errorMsg;
+                echo 'ERROR: ' . $db->getMessage();
+            }
+        } else {
+            return $this->admin;
         }
+        
     }
     
     
@@ -156,7 +308,7 @@ class User {
             } else {
             
             	$limitby = intval($num);
-                $data = $db->prepare('SELECT timestamp, previous_punch AS previous_timestamp, hours_worked from punches WHERE user_id=:userid AND in_out=0 AND hours_worked IS NOT NULL ORDER BY timestamp DESC LIMIT :num');
+                $data = $db->prepare('SELECT id, timestamp, previous_punch AS previous_timestamp, hours_worked, earnings from punches WHERE user_id=:userid AND in_out=0 AND hours_worked IS NOT NULL ORDER BY timestamp DESC LIMIT :num');
                 $data->bindParam(':userid', $this->userID);
                 $data->bindParam(':num', $limitby, PDO::PARAM_INT);
                 $data->execute();
@@ -177,7 +329,7 @@ class User {
      * Provides hours worked for the specified date (Today by default). If the user is working, this
      * additionally obtains the last time stamp and does maths.
      *
-     * @param  string   $date   (optional) date to get hours worked. if not provided, returns hours worked for today.
+     * @param  string   $date   (optional) date to get hours worked. if not provided, returns hours worked for today. This needs to be in MySQL DATE format: YYYY-MM-DD
      * @return array    array containing timestamp and hours worked.
      * @access public
      */
@@ -192,20 +344,35 @@ class User {
             
             if ($date == "today") {
                 // ---------------------------------------------------------------------------------------------- timestamp = TODAY  and the previous punch was created today.
-                $data = $db->prepare('SELECT previous_punch AS clocked_in, timestamp AS clocked_out, hours_worked FROM punches WHERE user_id=:userid AND DATE(timestamp) = CURDATE() AND previous_punch > CURDATE() AND in_out=0 ORDER BY timestamp DESC');
+                $data = $db->prepare('SELECT hours_worked FROM punches WHERE user_id=:userid AND DATE(timestamp) = CURDATE() AND previous_punch > CURDATE() AND in_out=0 ORDER BY timestamp DESC');
             } else {
                 
                 $startDate = "$date 00:00:00";
                 $enddate = "$date 23:59:59";
                 
-                $data = $db->prepare('SELECT previous_punch AS clocked_in, timestamp AS clocked_out, hours_worked FROM punches WHERE user_id=:userid AND timestamp > :startDate AND timestamp < :endDate AND previous_punch > :startDate AND in_out=0 ORDER BY timestamp DESC');
+                $data = $db->prepare('SELECT hours_worked FROM punches WHERE user_id=:userid AND timestamp > :startDate AND timestamp < :endDate AND previous_punch > :startDate AND in_out=0 ORDER BY timestamp DESC');
                 $data->bindParam(':startDate', $startDate);
                 $data->bindParam(':endDate', $endDate);
             }
+            
 
             $data->bindParam(':userid', $this->userID);
             $data->execute();
             $result = $data->fetchALL(PDO::FETCH_ASSOC);
+            
+            if ($date == "today" && $this->isWorking()) {
+                $totalHoursWorked[] = timeBetweenDates($this->lastPunch());
+            } 
+
+            foreach ($result as $punch) {
+                $totalHoursWorked[] = $punch['hours_worked'];
+            }
+            
+            if (!empty($totalHoursWorked)) {
+                $result = addTimes($totalHoursWorked);
+            } else {
+                $result = "00:00";
+            }
 
             return $result;
             
@@ -216,11 +383,73 @@ class User {
     
     
     
+    
+    public function addNote($message, $timestamp = "last") {
+        $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        try {
+            
+            if ($timestamp == "last") {
+                $timestamp = $this->lastPunch();
+            } 
+            
+            $data = $db->prepare('UPDATE punches SET note=:note WHERE user_id=:userid AND timestamp=:timestamp');
+            $data->bindParam(':note', $message);
+            $data->bindParam(':userid', $this->userID);
+            $data->bindParam(':timestamp', $timestamp);
+            
+            // need to start doing this for all executes..
+            if ($data->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch(PDOException $db) {
+            //echo $errorMsg;
+            echo 'ERROR: ' . $db->getMessage();
+            
+            return false;
+        }
+        
+    }
+    
+    
+    public function addEarnings($amount) {
+        $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        try {
+
+            $timestamp = $this->lastPunch();
+            
+            $data = $db->prepare('UPDATE punches SET earnings=:earnings WHERE user_id=:userid AND timestamp=:timestamp');
+            $data->bindParam(':earnings', $amount);
+            $data->bindParam(':userid', $this->userID);
+            $data->bindParam(':timestamp', $timestamp);
+            
+            // need to start doing this for all executes..
+            if ($data->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch(PDOException $db) {
+            //echo $errorMsg;
+            echo 'ERROR: ' . $db->getMessage();
+            
+            return false;
+        }
+        
+    }
+    
     /**
      * Adds a 'punch' to the database for the user.
      *
      * @param  array	$obj   (optional) array that can contain the following keys: time, note, event.
-     * @return array	returns an array containing the following keys: success (1 or 0), return (timestamp)
+     * @return array	returns an array containing the following keys: success (1 or 0), return (message), timestamp (timestamp)
      * @access public
      */
     public function punch($obj = array()) {
@@ -235,15 +464,19 @@ class User {
             $obj['time'] = date("Y-m-d H:i:s");
         }
         
+        // Getting the information from this user's last punch.
         $lastPunchResults = $this->lastPunch();
         
         if (!empty($lastPunchResults)) {
+            
+            // Time of the last punch.
     		$lastPunch = date('Y-m-d H:i',strtotime($lastPunchResults));
-    		
+    		// and our current time..
     		$currentTime = date('Y-m-d H:i',strtotime($obj['time']));
     		
+    		// If our current time is the exact same as our last punch, no go.
     		if ($lastPunch == $currentTime) {
-    			$punch = FALSE;
+    			$punch = false;
     			
     			$results = array(
     		    	"success" => 0,
@@ -253,13 +486,14 @@ class User {
     		
 				return $results;
     		} else {
-    			$punch = TRUE;
+    			$punch = true;
     		}
     	} else {
     		// Returned array was empty, there was no previous punches.
-    		$punch = TRUE;
+    		$punch = true;
     	}
     	
+    	// So if everything looks good.. Punch on
     	if ($punch) {
             
             if ($this->isWorking()) {
@@ -277,13 +511,13 @@ class User {
                 $lastPunchDB = null;
             }
         	
-        	
+        	// Checking if notes exist to ad 
         	if (array_key_exists('note', $obj) && $obj['note'] != "") {
                 $note = $obj['note'];
         	} else {
                 $note = null;
         	}
-        	
+        	// and checking if an Event exists.
         	if (array_key_exists('event', $obj) && $obj['event'] != "") {
                 $event = $obj['event'];
         	} else {
@@ -292,7 +526,6 @@ class User {
         	
         	$data = $db->prepare('INSERT INTO punches (user_id, timestamp, in_out, event, ip_address, note, previous_punch, hours_worked) VALUES ( :userid, :timestamp, :in_out, :event, :ipaddress, :note, :prevpunch, :hours_worked)');
         	
-    
             $data->bindParam(':userid', $this->userID);
             $data->bindParam(':timestamp', $obj['time']);
             $data->bindParam(':in_out', $in_out);
@@ -302,20 +535,24 @@ class User {
             $data->bindParam(':prevpunch', $lastPunchDB);
             $data->bindParam(':hours_worked', $hoursWorked);
     
-            $data->execute();
-            
-            $this->toggleWorking();
-    
-            //$time = date('H:i M d, Y',strtotime($theTime));
-            
-            // POST/REDIRECT/GET (we do this to avoid having the form be submitted again in a refresh)
-    		
-    		
-    		$results = array(
-    		    "success" => 1,
-    		    "return" => $obj['time'],
-    		    "timestamp" => $obj['time']
-    	    );
+            // if executing and adding this info to the database was successful..
+            if ($data->execute()) {
+                // Toggle from working to nonworking or nonworking to working
+                $this->toggleWorking();
+                // and return the good stuff
+                $results = array(
+        		    "success" => 1,
+        		    "return" => $obj['time'],
+        		    "timestamp" => $obj['time']
+        	    );
+            } else {
+                // something bad happened..
+                $results = array(
+        		    "success" => 0,
+        		    "return" => "Error adding punch. Please check with an administrator for this issue.",
+        		    "timestamp" => $obj['time']
+        	    );
+            }
     		
     		return $results;
     		
@@ -325,7 +562,7 @@ class User {
     }
     
     /**
-     * Toggles user working state
+     * Toggles user working state from Working to Non-working or Non-working to Working.
      *
      * @return void
      * @access public
@@ -360,8 +597,9 @@ class User {
 	public function logs($num = "") {
 		$db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
 	    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 		
-		$data = $db->prepare('SELECT timestamp, in_out, event, note FROM punches WHERE user_id=:userid ORDER BY timestamp DESC LIMIT 10');
+		$data = $db->prepare('SELECT id, timestamp, in_out, event, note FROM punches WHERE user_id=:userid ORDER BY timestamp DESC LIMIT 10');
             
         $data->bindParam(':userid', $this->userID);
         $data->execute();

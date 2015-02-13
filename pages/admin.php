@@ -16,7 +16,7 @@ if (!$user->isAdmin()) {
     
     $usersWorking = $admin->usersWorking();
     
-    if (isset($_POST['admin_punch'])) {
+    if (isset($_POST['admin_punch']) || isset($_POST['user_edit_punch'])) {
 	    $punchSettings = array(
         	"event" => "Punch*",
         	"note" => "Added by ".$user->getUserRealName(TRUE)
@@ -29,16 +29,20 @@ if (!$user->isAdmin()) {
 	    
 	    if ($result['success'] == 1) {
 	    	$successMessage = "Successfully punched ".$employeeName['first_name']." ".$employeeName['last_name'].".";
-			$alertMessage = "alert-success";
+			$alertStyle = "alert-success";
 	    } else {
 		    $successMessage = $result['return'];
 			$alertStyle = "alert-danger";
 	    }
 		
-		new Message($successMessage, $alertMessage, TRUE);
+		new Message($successMessage, $alertStyle, TRUE);
 		
 		unset($_POST['admin_punch']);
-	    header("Location: /admin");
+		if (isset($_POST['user_edit_punch'])) {
+		    header("Location: /admin/users/".$_POST['user']);
+		} else {
+	        header("Location: /admin");
+		}
 	    exit();
 	    
     }
@@ -63,4 +67,4 @@ if ($requestURI[1] == "") {
     include('./pages/admin_main.php');
 } elseif ($requestURI[1] == "users") {
     include('./pages/admin_users.php');
-}
+} 

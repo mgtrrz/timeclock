@@ -3,7 +3,36 @@
 // Must be added to all pages
 if (!defined('TIMECLOCK')) die();
 
+$allUsers = $admin->getAllUsers();
+
+if (is_numeric($requestURI[2])) {
+    include('./pages/admin_user_edit.php');
+} else {
 ?>
+
+<h2>Modify Users</h2>
+
+<form class="form-horizontal">
+  <fieldset>
+    <div class="form-group">
+      <label for="select" class="col-lg-2 control-label">Users</label>
+      <div class="col-lg-10">
+        <select class="form-control" id="select" name="form" onchange="location = this.options[this.selectedIndex].value;">
+          <option>Select User</option>
+          <?php
+          
+          foreach ($allUsers as $user) {
+              echo '<option value="/admin/users/'.$user['staff_id'].'" >'.$user['first_name'].' '.$user['last_name'].'</option>';
+          }
+          
+          ?>
+        </select>
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+<hr>
 
 <h2>Create User</h2>
 <form class="form-horizontal">
@@ -99,3 +128,5 @@ if (!defined('TIMECLOCK')) die();
     
   </fieldset>
 </form>
+<?php
+}

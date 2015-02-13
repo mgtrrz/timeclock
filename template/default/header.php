@@ -1,4 +1,5 @@
 <?php
+if (!defined('TIMECLOCK')) die();
 $userIsWorking = $user->isWorking();
 ?>
 <!DOCTYPE html>
@@ -30,13 +31,23 @@ $userIsWorking = $user->isWorking();
 
     <!-- Bootstrap minified JS -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    
+    <link href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/lib/fullcalendar-2.0.3/fullcalendar.css" rel='stylesheet' />
+    <link href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/lib/fullcalendar-2.0.3/fullcalendar.print.css" rel='stylesheet' media='print' />
+    <script src="http://<?php echo $_SERVER['SERVER_NAME']; ?>/lib/fullcalendar-2.0.3/lib/moment.min.js"></script>
+    <!--<script src='../lib/jquery.min.js'></script>
+    <script src='../lib/jquery-ui.custom.min.js'></script>-->
+    <script src="http://<?php echo $_SERVER['SERVER_NAME']; ?>/lib/fullcalendar-2.0.3/fullcalendar.min.js"></script>
+
 
   </head>
 
   <body onload="updateClock(); setInterval('updateClock()', 1000 ) ">
 
   <div id="container">
-  
+  <?php if (DEV_DEBUG) {
+    echo '<p class="text-danger">timeclock development <a href="versions">v'. $timeclock_version .'</a></p>';
+  } ?>
   <div class="navbar navbar-default">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
@@ -51,7 +62,6 @@ $userIsWorking = $user->isWorking();
       <li <?php if ($requestURI[0] == "") { echo 'class="active"'; } ?>><a href="/">Punches</a></li>
       <li <?php if ($requestURI[0] == "schedule") { echo 'class="active"'; } ?>><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/schedule">Schedule</a></li>
       <li <?php if ($requestURI[0] == "statistics") { echo 'class="active"'; } ?>><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/statistics">Statistics</a></li>
-      <li <?php if ($requestURI[0] == "earnings") { echo 'class="active"'; } ?>><a href="http://<?php echo $_SERVER['SERVER_NAME']; ?>/earnings">Earnings</a></li>
     </ul>
     
     <ul class="nav navbar-nav navbar-right">
@@ -67,11 +77,21 @@ $userIsWorking = $user->isWorking();
     </ul>
   </div>
 </div>
-<div id="workingBox">
+
+  <div id="workingBox">
 <?php if ($userIsWorking) {
-    echo '<div class="alert alert-warning" role="alert">Clocked in and working. Completed <span id="realtime">'.timeBetweenDatesWithSeconds($user->lastPunch()).'</span> hours.</div>';
-} ?>
+    //echo '<div class="alert alert-warning persistent" role="alert">Clocked in and working. Completed <span id="realtime">'.timeBetweenDatesWithSeconds($user->lastPunch()).'</span> hours.</div>';
+    ?>
+    
+    <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Clocked in and working. Completed <span id="realtime"><?php echo timeBetweenDatesWithSeconds($user->lastPunch()) ?></span> hours.</h3>
+        </div>
+    </div>
+
+<?php } ?>
 </div>
+
 <div id="clockDisplay">
 	<span id="clock">&nbsp;</span>
 </div>

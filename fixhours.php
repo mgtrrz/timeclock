@@ -1,7 +1,7 @@
 <?php
 include('./config.php');
-include('./functions.php');
-include('./user.class.php');
+include('./includes/functions.php');
+include('./includes/user.class.php');
 
 ?>
 <!DOCTYPE html>
@@ -123,4 +123,4 @@ if (isset($_GET['user'])) {
 } else {
     echo "Begin fixing hours worked by appending: ?user=userid";
 }
-include('./footer.php');
+include('./template/default/footer.php');

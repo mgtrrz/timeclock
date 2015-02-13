@@ -1,4 +1,6 @@
+<?php if (!defined('TIMECLOCK')) die(); ?>
     </div> <!-- /container -->
+
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -14,7 +16,26 @@ $(document).ready(function(){
         }
     });
     
+    window.setTimeout(function() {
+        $(".alert").fadeTo(1500, 0).slideUp(500, function(){
+            $(this).remove(); 
+        });
+    }, 5000);
+    
+    
 });  
+
+$(function () {
+    $("[rel='tooltip']").tooltip();
+});
+
+function limitText(limitField, limitCount, limitNum) {
+	if (limitField.value.length > limitNum) {
+		limitField.value = limitField.value.substring(0, limitNum);
+	} else {
+		limitCount.value = limitNum - limitField.value.length;
+	}
+}
 
 
 function plz(digit){
@@ -72,7 +93,7 @@ function updateClock ()
     hour=hour + 1;
   }
 
-  $("#realtime").text(plz(hour) +":" + plz(mins) + ":" + plz(secs));
+  $("#realtime").text(plz(hour) +":" + plz(mins) + ":" + currentSeconds);
   
 }
 

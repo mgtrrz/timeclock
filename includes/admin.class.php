@@ -44,10 +44,10 @@ class Admin {
         try {
             
             if ($num == 'ALL') {
-                $data = $db->prepare('SELECT user_id, timestamp, in_out, event, ip_address, note FROM punches ORDER BY timestamp DES');
+                $data = $db->prepare('SELECT id, user_id, timestamp, in_out, event, ip_address, note FROM punches ORDER BY timestamp DES');
             } elseif (is_numeric($num)) {
                 $limitby = intval($num);
-                $data = $db->prepare('SELECT user_id, timestamp, in_out, event, ip_address, note FROM punches ORDER BY timestamp DESC LIMIT :num');
+                $data = $db->prepare('SELECT id, user_id, timestamp, in_out, event, ip_address, note FROM punches ORDER BY timestamp DESC LIMIT :num');
                 $data->bindParam(':num', $limitby, PDO::PARAM_INT);
             } else {
                 echo 'Number parameter is incomplete';
@@ -90,4 +90,24 @@ class Admin {
             echo 'ERROR: ' . $db->getMessage();
         }
     }
+    
+    
+    public function getAllUsers() {
+        // select staff_id, dept_id, first_name, last_name, is_working, is_freelance, schedule FROM users WHERE is_active=1 AND schedule IS NOT Null
+        $db = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        try {
+            
+            $data = $db->prepare('SELECT staff_id, username, first_name, last_name FROM users ORDER BY first_name');
+            $data->execute();
+            $result = $data->fetchALL(PDO::FETCH_ASSOC);
+            
+            return $result;
+        } catch(PDOException $db) {
+            //echo $errorMsg;
+            echo 'ERROR: ' . $db->getMessage();
+        }
+    }
+    
 }

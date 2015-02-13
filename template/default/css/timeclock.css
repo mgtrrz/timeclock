@@ -13,14 +13,26 @@ body {
 	margin:auto;
 }
 
-.extraWide {
-	padding-right:54px;
-	padding-left:54px;
-}
-
 #alert {
 	padding-top: 20px;
 }
+
+
+#clickable a {
+    color: inherit;
+    text-decoration:none;
+}
+
+#clickable td:hover {
+    cursor: pointer;
+}
+
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 
 .jumbotron {
   text-align: center;
@@ -31,6 +43,7 @@ body {
     color:#C7C3C3;
 }
 
-#clickable td:hover {
-    cursor: pointer;
+.extraWide {
+	padding-right:54px;
+	padding-left:54px;
 }

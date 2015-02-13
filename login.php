@@ -45,8 +45,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">    
 
     <title>Log in to Timeclock</title>
 
@@ -64,12 +63,9 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
 
       <form class="form-signin" role="form" method="post">
         <h2 class="form-signin-heading">Timeclock</h2>
-        <input type="text" class="form-control" placeholder="User name" name="user" value="<?php if (isset($_POST['user']) && $cred['username'] != "") { echo $cred['username']; } ?>" required <?php if (!isset($_POST['user'])) { echo "autofocus"; } ?>>
+        <input type="text" class="form-control" placeholder="User name" name="user" autocorrect="off" autocapitalize="off" value="<?php if (isset($_POST['user']) && $cred['username'] != "") { echo $cred['username']; } ?>" required <?php if (!isset($_POST['user'])) { echo "autofocus"; } ?>>
         <input type="password" class="form-control" placeholder="Password" name="pass" required <?php if (isset($_POST['user'])) { echo "autofocus"; } ?>>
         <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
         </div>
         <?php if (isset($alert) && $alert != "") { echo '<div class="alert '.$alertStyle.'">'.$alert.'</div>'; $alert = "" ; } ?>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>

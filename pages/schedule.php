@@ -4,7 +4,7 @@
 //echo '</pre>';
 
 // Must be added to all pages
-if (!defined('TIMECLOCK')) die();
+if (!defined('TIMECLOCK')) die(); 
 
 if (isset($_POST['edit'])) {
     $editMode = true;
@@ -268,19 +268,26 @@ if ($user->isFreelance() || $user->isAdmin()) {
     
     if ($userSchedule != false || $editMode)
         if ($editMode) {
-            echo '<button type="submit" name="submit" class="btn btn-success">Submit Changes</button> <a href="schedule" class="btn btn-danger">Cancel</a>';
+            echo '<button type="submit" name="submit" class="btn btn-success">Submit Changes</button> <button type="submit" class="btn btn-danger" name="confirmDeletion" onclick="return confirm(\'Are you sure you want to remove your schedule?\')">Remove Schedule</button> <a href="schedule" class="btn btn-default">Cancel</a>';
         } else {
-            echo '<button type="submit" name="edit" class="btn btn-primary">Edit Schedule</button> <button type="submit" class="btn btn-danger" name="confirmDeletion" onclick="return confirm(\'Are you sure you want to remove your schedule?\')">Remove Schedule</button>';
+            echo '<button type="submit" name="edit" class="btn btn-primary">Edit Schedule</button>';
         }
         
     else
-        echo '<button type="submit" name="edit" class="btn btn-primary">Create Schedule</a>';
+        echo '<button type="submit" name="edit" class="btn btn-primary">Create Schedule</button>';
     
     echo "</form>\n";
     
 } else {
     if ($userSchedule == false) 
-        echo '<p>You are not currently on a schedule. Please ask an administrator for adjustments to your schedule.</p>';
+        echo '<div class="panel panel-warning">';
+        echo '  <div class="panel-heading">';
+        echo '    <h3 class="panel-title">No Schedule</h3>';
+        echo '  </div>';
+        echo '  <div class="panel-body">';
+        echo '  You are not currently on a schedule. Please ask your administrator to have a schedule set up for you.';
+        echo '  </div>';
+        echo '</div>';
 }
 
 ?>

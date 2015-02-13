@@ -8,7 +8,7 @@ echo "<h2>Users Currently Working</h2>\n";
 
 if (!empty($usersWorking)) {
     ?>
-    <table class="table table-striped table-hover ">
+    <table class="table table-striped table-hover" id="clickable">
       <thead>
         <tr>
           <th>Name</th>
@@ -24,7 +24,8 @@ if (!empty($usersWorking)) {
     
 		echo "<tr>";
 
-        echo "<td>".$entry['first_name']." ".$entry['last_name']."</td>";
+        echo "<td><a href='http://".$_SERVER['SERVER_NAME']."/admin/users/".$entry['staff_id']."' >".$entry['first_name']." ".$entry['last_name']."</a></td>";
+        //echo "<td>".$entry['first_name']." ".$entry['last_name']."</td>";
         echo "<td>".$entry['timestamp']."</td>";
         echo "<td>".timeBetweenDatesWithSeconds($entry['timestamp'])."</td>";
         echo '<td><form method="post"><input type="hidden" name="user" value="'.$entry['staff_id'].'"><button type="submit" name="admin_punch" class="btn btn-primary btn-xs">Punch</button></form></td>';
@@ -76,23 +77,25 @@ foreach ($userSchedules as $user) {
 }
 ?>
 
-    <table class="table table-striped table-hover "  id="clickable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Starts</th>
-          <th>Ends</th>
-          <th>Working</th>
-          <th>On Shift</th>
-          <th>Completed</th>
-        </tr>
-      </thead>
-      <tbody>
+<table class="table table-striped table-hover "  id="clickable">
+<thead>
+<tr>
+  <th>Name</th>
+  <th>Starts</th>
+  <th>Ends</th>
+  <th>Working</th>
+  <th>On Shift</th>
+  <th>Completed</th>
+</tr>
+</thead>
+<tbody>
       
-    <?php 
-    
-    $currentTime = date('Y-m-d H:i:s');
-    
+<?php 
+
+$currentTime = date('Y-m-d H:i:s');
+
+if (!empty($workingToday)) {
+
     foreach ($workingToday as $user) {
         
         // Grabbing shift times for the user which will display green if they're IN shift and currently working or RED
@@ -113,7 +116,7 @@ foreach ($userSchedules as $user) {
         
         // if SCHEDULE_END is LESS than SCHEDULE_START (e.g. 5pm shift start and 2am shift end)
         // make SCHEDULE_END tomorrow.
-        if ($user['schedule'][$today]['end'] < $user['schedule'][$today]['start']) {
+        if (strtotime($user['schedule'][$today]['end']) < strtotime($user['schedule'][$today]['start'])) {
             $userEndTime = date('Y-m-d H:i:s', strtotime("tomorrow ".$user['schedule'][$today]['end']));
         } else {
             $userEndTime = date('Y-m-d H:i:s', strtotime("today ".$user['schedule'][$today]['end']));
@@ -134,60 +137,67 @@ foreach ($userSchedules as $user) {
             $userIsWorking = "No";
         }
         
-        //echo $user['first_name'].' start time: '.$userStartTime.'<br>End Time: '.$userEndTime.'<br> Hours Scheduled: '.$hoursScheduled.'<br>';
-        
-        if ($currentTime >= $userStartTime && $currentTime <= $userEndTime) {
-            
+        $tempUser = new User($user['staff_id']);
+        $hoursWorkedToday = $tempUser->hoursWorked();
+        /*
+        echo "Current Time: $currentTime <br>";
+        echo "Current Time strtotime:".strtotime($currentTime)."<br>";
+        echo "User Shift Start: $userStartTime <br>";
+        echo "User Shift Start strtotime: ". strtotime($userStartTime)."<br>";
+        echo "User Shift End: $userEndTime <br>";
+        echo "User Shift End strtotime: ". strtotime($userEndTime)."<br><br>";
+        */
+        if (strtotime($currentTime) >= strtotime($userStartTime) && strtotime($currentTime) <= strtotime($userEndTime)) {
+            // If the current time is anywhere between SHIFT START and SHIFT END...
+    
             if ($userIsWorking == "Yes") {
                 echo '<tr class="success">';
             } else {
-                echo '<tr class="danger">';
+                
+                if ($hoursWorkedToday == "00:00") {
+                    echo '<tr class="danger">';
+                } else if ($hoursWorkedToday >= $hoursScheduled) {
+                    echo '<tr class="success">';
+                } else {
+                    echo '<tr class="warning">';
+                }
+    
             }
             $onShift = "Yes";
-        } else {
-            /*
-            if ($userIsWorking != "Yes" && $currentTime > $userEndtime) {
-                echo '<tr class="completed">';
+        } elseif ( strtotime($currentTime) > strtotime($userEndTime) ) {
+            // If the current time is passed the user's end shift time
+            
+            if ($hoursWorkedToday == "00:00") {
+                echo '<tr class="danger">';
+            } else if ($hoursWorkedToday >= $hoursScheduled) {
+                echo '<tr class="success">';
             } else {
-                echo '<tr>';
+                 echo '<tr class="warning">';
             }
-            */
-            echo '<tr>';
+                
             $onShift = "No";
         }
-        
-        $hoursWorkedToday;
-        
-        echo '</pre>';
+    
         
         echo "<td><a href='http://".$_SERVER['SERVER_NAME']."/admin/users/".$user['staff_id']."' >".$user['first_name']." ".$user['last_name']."</a></td>";
         echo "<td>".$user['schedule'][$today]['start']."</td>";
         echo "<td>".$user['schedule'][$today]['end']."</td>";
         echo "<td>$userIsWorking</td>";
         echo "<td>$onShift</td>";
-        echo "<td>0:00/$hoursScheduled</td>";
+        echo "<td>$hoursWorkedToday/$hoursScheduled</td>";
         echo "</tr>";
         
         //unset($userDB);
     }
-	echo '</tbody>';
-	echo '</table>';
+    echo '</tbody>';
+    echo '</table>';
+    
+} else {
+    echo '<div class="well">';
+    echo 'No users scheduled for today.';
+	echo '</div>';
+}
 	
-?>
-
-<h3>Tomorrow</h3>
-
-    <table class="table table-striped table-hover ">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Starts</th>
-          <th>Ends</th>
-        </tr>
-      </thead>
-      <tbody>
-      
-<?php 
 $workingTomorrow = array();
 
 $count = 0;
@@ -205,63 +215,92 @@ foreach ($userSchedules as $user) {
     $count++;
 }
 
-foreach ($workingTomorrow as $user) {
-	    echo "<tr>";
+echo "<h3>Tomorrow</h3>";
 
-        echo "<td>".$user['first_name']." ".$user['last_name']."</td>";
-        echo "<td>".$user['schedule'][$tomorrow]['start']."</td>";
-        echo "<td>".$user['schedule'][$tomorrow]['end']."</td>";
-        echo "</tr>";
-        
-        //unset($userDB);
-    }
-	echo '</tbody>';
-	echo '</table>';
-	
-?>
-
-<hr>
-
-<h3>Recent Punches</h3>
-
-<table class="table table-striped table-hover ">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Time Stamp</th>
-      <th>Activity</th>
-      <th>IP Address</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-<?php 
-
-$userPunches = $admin->getUserPunches();
-
-    foreach ($userPunches as $entry) {
-        
-        $tempUser = new User($entry['user_id']);
-
-		$t = strtotime($entry['timestamp']);
-		$time = date('M d, Y H:i',strtotime($entry['timestamp']));
-		
-		
-		if ($entry['in_out'] == 1) {
-			$activity = "In";
-		} else {
-			$activity = "Out";
-		}
+if (!empty($workingTomorrow)) {
+    ?>
     
-		echo "<tr>";
-		echo "<td>".$tempUser->getUserRealName(TRUE)."</td>";
-        echo "<td>$time</td>";
-        echo "<td>$activity</td>";
-        echo "<td>".$entry['ip_address']."</td>";
-        echo "<td>".$entry['note']."</td>";
-        echo "</tr>";
-    }
-?>
 
-  </tbody>
-</table>
+    <table class="table table-striped table-hover" id="clickable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Starts</th>
+          <th>Ends</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+    <?php
+    foreach ($workingTomorrow as $user) {
+    	    echo "<tr>";
+    
+            echo "<td><a href='http://".$_SERVER['SERVER_NAME']."/admin/users/".$user['staff_id']."' >".$user['first_name']." ".$user['last_name']."</a></td>";
+            echo "<td>".$user['schedule'][$tomorrow]['start']."</td>";
+            echo "<td>".$user['schedule'][$tomorrow]['end']."</td>";
+            echo "</tr>";
+            
+            //unset($userDB);
+        }
+    	echo '</tbody>';
+    	echo '</table>';
+    
+} else {
+    echo '<div class="well">';
+    echo 'No users scheduled for tomorrow.';
+	echo '</div>';
+}	
+    ?>
+    
+    <hr>
+    
+    <h3>Recent Punches</h3>
+    
+    <table class="table table-striped table-hover " id="clickable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Time Stamp</th>
+          <th>Activity</th>
+          <th>IP Address</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+    <?php 
+    
+    $userPunches = $admin->getUserPunches();
+    
+        foreach ($userPunches as $entry) {
+            
+            $tempUser = new User($entry['user_id']);
+    
+    		$t = strtotime($entry['timestamp']);
+    		$time = date('M d, Y H:i',strtotime($entry['timestamp']));
+    		
+    		
+    		if ($entry['in_out'] == 1) {
+    			$activity = "In";
+    		} else {
+    			$activity = "Out";
+    		}
+        
+    		echo "<tr>";
+    		echo "<td><a href='/punch/".$entry['id']."'>".$tempUser->getUserRealName(TRUE)."</a></td>";
+            echo "<td>$time</td>";
+            echo "<td>$activity</td>";
+            echo "<td>".$entry['ip_address']."</td>";
+            echo "<td>";
+            if (strlen($entry['note']) > 25) {
+                //echo substr($entry['note'],0,22)."...";
+                echo "<a href='#' rel='tooltip' title='".$entry['note']."' data-placement='right'>".substr($entry['note'],0,22)."...</a>";
+            } else {
+                echo $entry['note'];
+            }
+            echo "</td>";
+            echo "</tr>";
+        }
+    
+    echo "  </tbody>";
+    echo "</table>";
+
