@@ -6,7 +6,7 @@
  * http://marcusgutierrez.com
  * http://scripts.mk9.me/timeclock
  * 
- * Report all bugs to http://tracker.mk9.me/timeclock
+ * Report all bugs to https://bitbucket.org/marknine/timeclock/
  */
 
 
