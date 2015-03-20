@@ -156,14 +156,17 @@ if ($userSchedule != false ||$editMode) {
     
     $totalHoursScheduled = 0;
     
-    //$daysOfWeek = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
-    
     foreach ($daysOfWeek as $day) {
         
         
         $userStartTime = date('Y-m-d H:i:s', strtotime("today ".$userSchedule[strtolower($day)]['start']));
         
-        if ($userSchedule[strtolower($day)]['end'] < $userSchedule[strtolower($day)]['start']) {
+        // If the end time is before the start time, we're assuming this shift goes into the next day
+        // assuming is a dangerous word
+        $dtStart = new DateTime($userSchedule[strtolower($day)]['start']);
+        $dtEnd = new DateTime($userSchedule[strtolower($day)]['end']);
+        
+        if ( $dtStart < $dtEnd ) {
             $userEndTime = date('Y-m-d H:i:s', strtotime("tomorrow ".$userSchedule[strtolower($day)]['end']));
         } else {
             $userEndTime = date('Y-m-d H:i:s', strtotime("today ".$userSchedule[strtolower($day)]['end']));
@@ -172,7 +175,7 @@ if ($userSchedule != false ||$editMode) {
         $hoursScheduled = timeBetweenDates($userStartTime, $userEndTime);
         
         // Compensating for break. If the 'break' key exists in the array, subtract it from hours scheduled.
-        if ($userSchedule[strtolower($day)] != 0 && array_key_exists('break', $userSchedule[strtolower($day)])) {
+        if ( $userSchedule[strtolower($day)] != 0  &&  array_key_exists('break', $userSchedule[strtolower($day)]) ) {
             $hoursScheduled = timeBetweenDates($hoursScheduled, $userSchedule[strtolower($day)]['break']);
         }
         
