@@ -80,7 +80,7 @@ if (isset($_POST['punch']) || isset($_POST['punchWithNote'])) {
 }
 
 // Grabbing the variables after the domain and determining the pages to load.
-$pageName = ereg_replace("[^A-Za-z0-9]", "", trim($_SERVER['REQUEST_URI']) );
+$pageName = preg_replace("[^A-Za-z0-9]", "", trim($_SERVER['REQUEST_URI']) );
 $requestURI = explode('/',trim($_SERVER['REQUEST_URI'],'/'));
 
 if ($requestURI[0] == "" || $requestURI[0] == "index.php") {

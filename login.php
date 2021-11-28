@@ -18,7 +18,7 @@ if (isset($_POST['user']) && isset($_POST['pass'])) {
     } else {
         // We've got some input, let's check it.
         $cred = array(
-            "username" => ereg_replace("[^A-Za-z0-9]", "",$_POST['user']),
+            "username" => preg_replace("[^A-Za-z0-9]", "",$_POST['user']),
             "password" => $_POST['pass']
         );
         
