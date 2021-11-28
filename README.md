@@ -20,6 +20,13 @@ Administrative Users:
 * See who's scheduled to work and manually edit schedules or user settings
 
 
+### Installation ###
+
+* Configure a MySQL/MariaDB database
+* Run the `database_schema.sql` file to create the tables
+* Visit the site, login with username `admin` and password `admin`
+
+
 ### Screenshots ###
 
 ![Screenshot_1](https://m9-imgupload.s3.amazonaws.com/snap/TimeClock_2017-08-17_18-59-04.jpg)
